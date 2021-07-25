@@ -1,0 +1,4 @@
+MinGW not found at: C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32 Configure
+
+Cannot get compiler information:
+	Cannot run program "C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\bin\g++.exe" (in directory "E:\Rich It\ACM on CLION\Love_Triangle_codeForce\cmake-build-debug"): CreateProcess error=2, The system cannot find the file specified
