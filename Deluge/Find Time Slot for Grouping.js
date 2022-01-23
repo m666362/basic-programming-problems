@@ -1,37 +1,52 @@
 // Type Here
 events = [
-    { "startDate": "10-01-2022", "endDate": "12-01-2022", "id": "001" }
+    { "startDate": "10-01-2022", "endDate": "12-01-2022", "id": "001" },
+    { "startDate": "10-01-2022", "endDate": "12-01-2022", "id": "009" },
+    { "startDate": "21-01-2022", "endDate": "25-01-2022", "id": "002" },
+    { "startDate": "28-01-2022", "endDate": "29-01-2022", "id": "003" },
+    { "startDate": "10-01-2022", "endDate": "15-01-2022", "id": "004" },
+    { "startDate": "17-01-2022", "endDate": "20-01-2022", "id": "005" },
+    { "startDate": "28-01-2022", "endDate": "30-01-2022", "id": "005" },
+    { "startDate": "30-01-2022", "endDate": "31-01-2022", "id": "008" },
+    { "startDate": "26-01-2022", "endDate": "27-01-2022", "id": "008" }
   ];
   dateFormat = "dd-MM-yyyy";
-  startedDates = Map();
+  startedDateMap = Map();
+  
+  // This loop will create a map, where key=startDate and value=element of events
   for each index i in events
   {
 	  event = events.get(i);
-	  startedDates.put(event.get("startDate").toDate(dateFormat).toString()+"__"+i, event);
+	  startedDateMap.put(event.get("startDate").toDate(dateFormat).toString()+"__"+i, event);
   }
-  startedDates.sortKey(true);
-  result = startedDates.keys();
-  sortedStartDates = List();
-  for each r in result
+  
+  // Sorting by keys. As its key is start Date, it will sorted by startDate
+  startedDateMap.sortKey(true);
+  startDays = startedDateMap.keys(); 
+  sortedEventsByStartDate = List();
+  
+  // Creating list from map, this list will be sorted by start Date
+  for each startDay in startDays
   {
-	  sortedStartDates.add(startedDates.get(r));
+	  sortedEventsByStartDate.add(startedDateMap.get(startDay));
   }
+  
   finalResult = Map();
   for each index i in events
   {
 	  tempResult = List();
-	  if ( sortedStartDates.size() > 0 ) 
+	  if ( sortedEventsByStartDate.size() > 0 ) 
       {
-	  	tempResult.add(sortedStartDates.get(0));
-		sortedStartDates.remove(0);
-        loopDates =  sortedStartDates;
+	  	tempResult.add(sortedEventsByStartDate.get(0));
+		sortedEventsByStartDate.remove(0);
+        loopDates =  sortedEventsByStartDate;
 		  for each index j in loopDates
 		  {
 			  currentDate = loopDates.get(j);
 			  if ( currentDate.get("startDate").toDate(dateFormat) > tempResult.get(tempResult.size()-1).get("endDate").toDate(dateFormat) ) 
 			  {
 					tempResult.add(currentDate);
-					sortedStartDates.removeElement(currentDate);
+					sortedEventsByStartDate.removeElement(currentDate);
 			  }
 		  }
       }
@@ -40,7 +55,7 @@ events = [
 		  finalResult.put(i, tempResult);
       }
   }
-  info finalResult;
+  
   for each tempkey in finalResult.keys()
   {
 	  info finalResult.get(tempkey);
